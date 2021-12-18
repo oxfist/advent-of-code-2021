@@ -29,7 +29,7 @@ function markBoard(boardData, num) {
 
     if (numPosition != -1) {
       row[numPosition] = "X";
-      boardData.boardRows[numPosition][rowNum] = "X";
+      boardData.boardColumns[numPosition][rowNum] = "X";
     }
   });
 }
@@ -48,7 +48,7 @@ function isBingo(boardData) {
   for (let i = 0; i < boardData.board.length; i++) {
     if (
       sumArray(boardData.board[i]) === 0 ||
-      sumArray(boardData.boardRows[i]) === 0
+      sumArray(boardData.boardColumns[i]) === 0
     ) {
       return true;
     }
@@ -59,7 +59,7 @@ function isBingo(boardData) {
 
 async function playBingo(reader) {
   let newBoard = [];
-  let boardRows = [];
+  let boardColumns = [];
 
   for await (const line of reader) {
     if (line === "") continue;
@@ -73,13 +73,13 @@ async function playBingo(reader) {
 
     if (newBoard.length === 5) {
       for (let i = 0; i < newBoard.length; i++) {
-        boardRows.push(newBoard.map((row) => getBoardColumns(row, i)));
+        boardColumns.push(newBoard.map((row) => getBoardColumns(row, i)));
       }
 
-      const boardData = { board: newBoard, boardRows: boardRows };
+      const boardData = { board: newBoard, boardColumns: boardColumns };
       boards.push(boardData);
       newBoard = [];
-      boardRows = [];
+      boardColumns = [];
     }
   }
 
