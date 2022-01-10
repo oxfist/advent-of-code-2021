@@ -121,26 +121,26 @@ function countOverlappingPoints(grid) {
 }
 
 async function readVentLines(reader) {
-  const lines = [];
-  let overlappingPointsCount;
+  const ventLines;
+  let grid;
   let max_x;
   let max_y;
-  let grid;
+  let overlappingPointsCount;
 
   for await (const line of reader) {
     const [p1, p2] = line.split(" -> ");
     const [x1, y1] = p1.split(",").map(Number);
     const [x2, y2] = p2.split(",").map(Number);
 
-    lines.push({ x1, y1, x2, y2 });
+    ventLines.push({ x1, y1, x2, y2 });
   }
 
-  max_x = findMax(lines, X_COORDINATE);
-  max_y = findMax(lines, Y_COORDINATE);
+  max_x = findMax(ventLines, X_COORDINATE);
+  max_y = findMax(ventLines, Y_COORDINATE);
 
   grid = buildGrid(max_x, max_y);
 
-  addLines(grid, lines);
+  addLines(grid, ventLines);
 
   overlappingPointsCount = countOverlappingPoints(grid);
 
