@@ -121,7 +121,7 @@ function countOverlappingPoints(grid) {
 }
 
 async function readVentLines(reader) {
-  const ventLines;
+  const ventLines = [];
   let grid;
   let max_x;
   let max_y;
